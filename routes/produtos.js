@@ -1,5 +1,4 @@
 const express = require('express');
-const { route } = require('../app');
 const router = express.Router();
 
 //RETORNA TODOS OS PRODUTOS
@@ -34,7 +33,7 @@ router.patch('/', (req, res, next) => {
 });
 
 //DELETA UM PRODUTO
-route.delete('/', (req, res, next) => {
+router.delete('/', (req, res, next) => {
     res.status(201).send({
         mensagem: 'Usando o DELETE dentro da rota produtos'
     })
