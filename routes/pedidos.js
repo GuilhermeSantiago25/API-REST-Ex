@@ -36,8 +36,8 @@ router.patch('/', (req, res, next) => {
 router.delete('/', (req, res, next) => {
     res.status(201).send({
         mensagem: 'Usando o DELETE dentro da rota produtos'
-    })
-})
+    });
+});
 
 
 module.exports = router;
