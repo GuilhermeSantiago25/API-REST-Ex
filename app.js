@@ -1,8 +1,10 @@
-const express = require('express');
-const morgan = require('morgan');
+import express from 'express';
+import morgan  from 'morgan';
+import {createTable} from './controllers/pedidos.js'
 
-const rotaProdutos = require('./routes/produtos');
-const rotaPedidos = require('./routes/pedidos');
+import rotaProdutos from './routes/produtos.js';
+import rotaPedidos  from './routes/pedidos.js';
+
 
 const app = express();
 
@@ -23,6 +25,8 @@ app.use((req, res, next) => {
 app.use('/produtos', rotaProdutos);
 app.use('/pedidos', rotaPedidos);
 
+createTable();
+
 app.use((req, res, next) => {
     const erro = new Error('Não encontrado');
     erro.status = 404;
@@ -38,4 +42,5 @@ app.use((error,req,res,next) => {
     });
 });
 
-module.exports = app;
+
+export default app;

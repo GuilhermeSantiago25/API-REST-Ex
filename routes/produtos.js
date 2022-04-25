@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 //RETORNA TODOS OS PRODUTOS
@@ -27,7 +27,7 @@ router.post('/', (req,res,next) => {
 
 //ALTERA UM PRODUTO
 router.patch('/', (req, res, next) => {
-    res.status(201).send({
+    res.status(200).send({
         mensagem: 'Usando o PATCH dentro da rota produtos'
     });
 });
@@ -40,4 +40,4 @@ router.delete('/', (req, res, next) => {
 })
 
 
-module.exports = router;
+export default router;

@@ -1,14 +1,24 @@
-const express = require('express');
+import express from 'express';
+import {insertPedido,updatePedido,selectPedido,selectPedidoId} from '../controllers/pedidos.js'
 const router = express.Router();
 
 //RETORNA TODOS OS PEDIDOS
-router.get('/', (req,res,next) => {
-    res.status(200).send({
-        message: 'Usando o GET dentro da rota de pedidos'
+router.get('/pedidos', async (req,res,next) => {
+    let pedidos = await selectPedido();
+    res.status(200).json({
+        pedidos
     });
 });
 
-//RETORNA OS DADOS DE UM PEDIDO
+//RETONA OS DADOS DE UM PEDIDO
+router.get('/pedido', async (req,res,next) => {
+    let pedidos = await selectPedidoId();
+    res.status(200).json({
+        pedidos
+    });
+});
+
+//RETORNA OS DADOS DE UM PEDIDO POR PARAMETRO 
 router.get('/:id_pedidos', (req, res, next) => {
     const id = req.params.id_pedidos;
     res.status(200).send({
@@ -19,15 +29,21 @@ router.get('/:id_pedidos', (req, res, next) => {
 });
 
 // ADICIONA UM PEDIDO
-router.post('/', (req,res,next) => {
-    res.status(201).send ({
-        mensagem: 'Usando o POST  dentro da rota de pedidos'
-    });
+router.post('/pedidos', (req,res,next) => {
+    insertPedido(req.body);
 });
 
 //ALTERA UM PEDIDO
-router.patch('/', (req, res, next) => {
-    res.status(201).send({
+router.put('/pedidos', (req, res, next) => {
+    if(req.body && !req.body.id){
+        res.status(400).json({
+            erro: {
+                mensagem: error.mensagem
+            }
+        });
+    }
+    updatePedido(req.body);
+    res.status(200).send({
         mensagem: 'Usando o PATCH dentro da rota pedidos'
     });
 });
@@ -40,4 +56,4 @@ router.delete('/', (req, res, next) => {
 });
 
 
-module.exports = router;
+export default router;
